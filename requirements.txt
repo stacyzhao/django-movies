@@ -1,0 +1,7 @@
+Django==1.9.6
+jupyter==1.0.0
+jupyter-client==4.2.2
+jupyter-console==4.1.1
+jupyter-core==4.1.0
+pandas==0.18.0
+psycopg2==2.6.1
