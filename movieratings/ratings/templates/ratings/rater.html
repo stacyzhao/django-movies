@@ -1,0 +1,16 @@
+{% if rater_list %}
+  <table>
+    <tr>
+      <th>age</th>
+      <th>Gender</th>
+    </tr>
+  </table>
+    {% for rater in rater_list %}
+  <table>
+    <tr>
+        <td>{{rater.id}}</td>
+        <td>{{rater.gender}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endif %}

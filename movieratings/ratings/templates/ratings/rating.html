@@ -1,0 +1,19 @@
+{% if rating_list %}
+  <table>
+    <tr>
+      <th>Time Stamp</th>
+      <th>Title</th>
+      <th>Release Date</th>
+    </tr>
+  </table>
+    {% for rating in rating_list %}
+  <table>
+      <tr>
+        <td><a href="/ratings/{{rating.movie}}">{{rating.movie}}</a></td>
+
+        <td>{{rating.rating}}</td>
+        <!-- <td>{{rating.movie}}</td> -->
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}

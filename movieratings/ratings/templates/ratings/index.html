@@ -1,0 +1,17 @@
+{% if avg_list %}
+  <table>
+    <tr>
+      <th>movie</th>
+      <th>release_date</th>
+    </tr>
+  </table>
+    {% for avg in avg_list %}
+  <table>
+    <tr>
+        <td><a href="/ratings/{{movie.id}}">{{movie.title}}</a></td>
+        <!-- <td>{{movie.title}}</td> -->
+        <td>{{movie.release_date}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endif %}

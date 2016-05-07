@@ -1,0 +1,21 @@
+{% if movie_list %}
+  <table>
+    <h1> Top 20 rated movies </h1>
+    <tr>
+      <th>Movie</th>
+      <th>Release Date</th>
+      <th>Average Rating
+    </tr>
+  </table>
+    {% for movie in movie_list %}
+  <table>
+    <tr>
+        <td>{{movie.avg_rating}}</td>
+        <td><a href={"% url 'movie' %)">{{movie.title}}</a></td>
+
+        <!-- <td>{{movie.title}}</td> -->
+        <td>{{movie.release_date}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endif %}
