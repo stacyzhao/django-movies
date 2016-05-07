@@ -1,16 +1,11 @@
-{% if rater_list %}
-  <table>
-    <tr>
-      <th>age</th>
-      <th>Gender</th>
-    </tr>
-  </table>
-    {% for rater in rater_list %}
-  <table>
-    <tr>
-        <td>{{rater.id}}</td>
-        <td>{{rater.gender}}</td>
-    </tr>
-    {% endfor %}
-  </table>
-{% endif %}
+{% block content %}
+  <h1>{{rater.id}}</h1>
+  {{rater.age}}
+  {{rater.gender}}
+  {{rater.occupation}}
+  <p>
+    {% for rating in ratings %}
+      Title: <a href="{% url 'ratings:movie_detail' rating.movie_id %}">{{ rating.movie }}</a>, Rating: {{rating.rating}}
+  </p>
+  {% endfor %}
+{% endblock %}

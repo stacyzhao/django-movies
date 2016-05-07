@@ -1,21 +1,14 @@
-{% if movie_list %}
-  <table>
-    <h1> Top 20 rated movies </h1>
-    <tr>
-      <th>Movie</th>
-      <th>Release Date</th>
-      <th>Average Rating
-    </tr>
-  </table>
-    {% for movie in movie_list %}
-  <table>
-    <tr>
-        <td>{{movie.avg_rating}}</td>
-        <td><a href={"% url 'movie' %)">{{movie.title}}</a></td>
+{% block content %}
+  <h2>{{ movie.title }}</h2>
+    <p>
+      Number of ratings: {{ movie.number_ratings }}<br>
+      Average rating: {{ movie.avg_rating | floatformat:"2" }}
+    </p>
 
-        <!-- <td>{{movie.title}}</td> -->
-        <td>{{movie.release_date}}</td>
-    </tr>
-    {% endfor %}
-  </table>
-{% endif %}
+    <p>
+      {% for rating in ratings %}
+        <a href="{% url 'ratings:rater_detail' rating.rater_id %}">#{{ rating.rater_id }}</a>
+        Rating: {{rating.rating}}
+    </p>
+  {% endfor %}
+{% endblock %}
