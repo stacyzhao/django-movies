@@ -1,0 +1,10 @@
+{% block content %}
+  <h1>Top 20 movies YO!</h1>
+  <p>
+    {% for movie in movies %}
+      Rating: {{movie.avg_rating | floatformat:"2"}}
+      <a href="{% url 'ratings:movie_detail' movie.id %}">{{movie.title}}</a>
+  </p>
+  </p>
+  {% endfor %}
+{% endblock %}

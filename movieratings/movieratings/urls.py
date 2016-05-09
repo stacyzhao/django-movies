@@ -15,14 +15,18 @@ Including another URLconf
 """
 
 
-from django.conf.urls import include, url, patterns
+from django.conf.urls import include, url
 from django.contrib import admin
 
 
 urlpatterns = [
-     url(r'^admin', include(admin.site.urls)),
-     url(r'^ratings/', include('ratings.urls')),
+    url(r'^admin', include(admin.site.urls)),
+    url(r'^ratings/', include('ratings.urls')),
+
+    # url(r'^accounts/', include('registration.backends.simple.urls')),
+    # url(r'^login/', include('login.urls')),
 ]
+
     # url(r'^movie/', 'movie', name = 'movie'),
 #     url(r'^rater/', 'rater', name = 'rater'),
 #     url(r'^rating/', 'rating', name= 'rating')

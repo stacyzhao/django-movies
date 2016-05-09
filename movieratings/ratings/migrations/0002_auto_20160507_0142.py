@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
+from django.contrib.auth.models import User
 import csv
 
 
@@ -10,10 +11,12 @@ def get_rater(apps, schema_editor):
     Rater = apps.get_model("ratings", "Rater")
     with open('../ml-100k/u.user', 'r') as f:
         data = csv.reader(f, delimiter='|')
+        count = 0
         for row in data:
-            rater = Rater(age=row[1], gender=row[2], occupation=row[3])
+            user = User.objects.Create(username='stacy' + str(count), email='email' + str(count) + '@gmail.com', password='password')
+            count += 1
+            rater = Rater(age=row[1], gender=row[2], occupation=row[3], user=user)
             rater.save()
-
 
 class Migration(migrations.Migration):
 
