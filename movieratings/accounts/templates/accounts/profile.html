@@ -1,0 +1,20 @@
+{% block content %}
+  <h1>Hi {{user}}!</h1>
+  <h2>Top 20 movies</h2>
+  <p>
+    {% for movie in top_movies %}
+      Rating: {{movie.avg_rating | floatformat:"2"}}
+      <a href="{% url 'ratings:movie_detail' movie.id %}">{{movie.title}}</a>
+      <br>
+    {% endfor %}
+  </p>
+{% endblock %}
+
+
+<!-- <form action="{% url 'profile' %}" method="post">
+  {% csrf_token %}
+  <label for="movie">Movie</label>
+  <select name="movie" id="movie">
+    {% for movie in movies %}
+      <option value="{{ movie.id }}">{{ movie.title }}</option>
+    {% endfor %} -->
