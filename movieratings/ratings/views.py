@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Movie, Rating, Rater
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-
+from .forms import RatingForm
 
 def index(request):
     # movie = Movie.objects.get(pk=movie_id)
@@ -18,9 +18,14 @@ def top_movies(request):
 def get_movies(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     ratings = movie.rating_set.all()
+    rating = Rating.objects.filter(movie_id=movie_id, rater_id=request.user.rater.id).first()
+    form = RatingForm()
+    # 'SELECT * FROM ratings where movie_id = "rater_id";'
     context = {
         'movie': movie,
         'ratings': ratings,
+        'rating': rating,
+        'form': form,
     }
     return render(request, 'ratings/movie.html', context)
     # movie = Movie.get_object_or_404(Movie, pk=movie_id)
@@ -68,3 +73,22 @@ def get_raters(request, rater_id):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/logout/')
+
+
+def add_rating(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    if request.method == "POST":
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.cleaned_data['rating']
+            rating_obj = Rating(rater=request.user.rater, movie=movie, rating=rating)
+            rating_obj.save()
+            return HttpResponseRedirect('/ratings/movie/' + movie_id)
+    else:
+        form = RatingForm()
+
+    context = {
+        'form': form,
+        'movie': movie,
+    }
+    return render(request, 'ratings/add_rating.html', context)

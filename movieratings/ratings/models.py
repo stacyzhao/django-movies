@@ -18,6 +18,7 @@ class Rater(models.Model):
     occupation = models.CharField(max_length=50)
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
+
     def __str__(self):
         return "Age: {}, Gender: {}".format(self.age, self.gender)
 

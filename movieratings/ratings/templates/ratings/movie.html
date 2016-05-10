@@ -12,7 +12,12 @@
   {% endfor %}
   </p>
 
-  {% if request.user.is_authenticated %}
-  <p>{{user.name}}</p>
+  {% if user.is_authenticated %}
+    {% if rating %}
+      <p>You rated this movie {{rating.rating}} out of 5</p>
+    {% else %}
+      <a href="{% url 'ratings:add_rating' movie.id %}">Rate Movie!</a>
+    {% endif %}
   {% endif %}
+
 {% endblock %}
