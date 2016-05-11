@@ -1,8 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Movie, Rating, Rater
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import RatingForm
+from django.db.models import Avg, Count
+
 
 def index(request):
     # movie = Movie.objects.get(pk=movie_id)
@@ -18,8 +20,12 @@ def top_movies(request):
 def get_movies(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     ratings = movie.rating_set.all()
-    rating = Rating.objects.filter(movie_id=movie_id, rater_id=request.user.rater.id).first()
-    form = RatingForm()
+    if request.user.is_authenticated():
+        rating = Rating.objects.filter(movie_id=movie_id, rater_id=request.user.rater.id).first()
+        form = RatingForm()
+    else:
+        rating = False
+        form = False
     # 'SELECT * FROM ratings where movie_id = "rater_id";'
     context = {
         'movie': movie,
@@ -72,7 +78,7 @@ def get_raters(request, rater_id):
 
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect('/logout/')
+    return HttpResponseRedirect('ratings/')
 
 
 def add_rating(request, movie_id):
@@ -81,7 +87,8 @@ def add_rating(request, movie_id):
         form = RatingForm(request.POST)
         if form.is_valid():
             rating = form.cleaned_data['rating']
-            rating_obj = Rating(rater=request.user.rater, movie=movie, rating=rating)
+            review = form.cleaned_data['review']
+            rating_obj = Rating(rater=request.user.rater, movie=movie, rating=rating, review=review)
             rating_obj.save()
             return HttpResponseRedirect('/ratings/movie/' + movie_id)
     else:
@@ -92,3 +99,17 @@ def add_rating(request, movie_id):
         'movie': movie,
     }
     return render(request, 'ratings/add_rating.html', context)
+
+
+def user_redirect(request):
+    url = '/ratings/rater/{}'.format(request.user.rater.id)
+    return HttpResponseRedirect(url)
+
+
+def delete(request, id):
+    rating = get_object_or_404(Rating, id=id)
+    if rating.rater.user != request.user:
+        return HttpResponseRedirect('/ratings/')
+    rating.delete()
+    # return HttpResponseRedirect('haolso')
+    return HttpResponseRedirect('/ratings/top_movies')

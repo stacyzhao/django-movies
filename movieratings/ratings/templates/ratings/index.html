@@ -1,1 +1,15 @@
-<a href="/ratings/login">Log in</a>
+{% if user.is_authenticated %}
+  HI, {{user.username}} <a href="/logout/">Log out</a>
+{% else %}
+  <a href="/ratings/login">Log in</a>
+{% endif %}
+
+{% block content %}
+  <h1>Top 20 movies</h1>
+  <p>
+    {% for movie in movies %}
+      Rating: {{movie.avg_rating | floatformat:"2"}}
+      <a href="{% url 'ratings:movie_detail' movie.id %}">{{movie.title}}</a>
+  </p>
+  {% endfor %}
+{% endblock %}

@@ -18,7 +18,6 @@ class Rater(models.Model):
     occupation = models.CharField(max_length=50)
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return "Age: {}, Gender: {}".format(self.age, self.gender)
 
@@ -27,6 +26,7 @@ class Rating(models.Model):
     rater = models.ForeignKey(Rater, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     rating = models.IntegerField()
+    review = models.TextField(blank=True)
 
     def __str__(self):
         return "{}, {}, {}".format(self.rater, self.movie, self.rating)

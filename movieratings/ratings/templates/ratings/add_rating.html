@@ -1,0 +1,16 @@
+
+<h2>{{ movie.title }}</h2>
+
+<form action="{% url 'ratings:add_rating' movie.id %}" method="post">
+  <form action="{% url 'ratings:add_rating' movie.id %}" method="post">
+
+  {% csrf_token %}
+  What would you like to rate {{movie.title}}?<br>
+  {{ form.rating }}
+  <br><br><br>
+  Add optional review below!
+  <br>
+  {{ form.review }}
+  <br><br><input type="submit" value="Add Rating">
+  </form>
+</form>

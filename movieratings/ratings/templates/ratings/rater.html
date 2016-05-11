@@ -1,5 +1,8 @@
+Hi, {{ user.get_username }} <a href="/logout/">logout</a>
+
 {% block content %}
   <h1>{{rater.id}}</h1>
+  Profile:
   {{rater.age}}
   {{rater.gender}}
   {{rater.occupation}}
