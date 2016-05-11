@@ -1,7 +1,14 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ratings/style.css' %}" />
+
+
 {% block content %}
 
 {% if user.is_authenticated %}
-Hi, {{ user.get_username }} <a href="/logout/">logout</a>
+  Hi, {{ user.get_username }} <a href="/logout/">Logout</a>
+{% else %}
+  Hi there! >>>> <a href="/login/">Login</a>
 {% endif %}
 
 <h2>{{ movie.title }}</h2>
@@ -21,7 +28,7 @@ Hi, {{ user.get_username }} <a href="/logout/">logout</a>
 <p>
 {% for rating in ratings %}
   <br><a href="{% url 'ratings:rater_detail' rating.rater_id %}">#{{ rating.rater_id }}</a>
-  Rating: {{rating.rating}}
+  Rating: {{rating.rating}}<br>
   {% if user.is_authenticated and user.rater == rating.rater %}
     <form action="{% url 'ratings:delete' rating.id %}" method="post">
       {% csrf_token %}

@@ -1,14 +1,28 @@
-Hi, {{ user.get_username }} <a href="/logout/">logout</a>
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ratings/style.css' %}" />
+
 
 {% block content %}
+
+{% if user.is_authenticated %}
+  Hi, {{ user.get_username }} <a href="/logout/">Logout</a>
+{% else %}
+  Hi there! >>>> <a href="/login/">Login</a>
+{% endif %}
+
   <h1>{{rater.id}}</h1>
-  Profile:
-  {{rater.age}}
-  {{rater.gender}}
-  {{rater.occupation}}
+  <div class="profile">
+    Age: {{rater.age}}<br>
+    Gender: {{rater.gender}}<br>
+    Occupation: {{rater.occupation}}<br>
+  </div>
+  <br>
+
   <p>
     {% for rating in ratings %}
       Title: <a href="{% url 'ratings:movie_detail' rating.movie_id %}">{{ rating.movie }}</a>, Rating: {{rating.rating}}
+
   </p>
   {% endfor %}
 {% endblock %}

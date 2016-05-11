@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+
+
+body {
+  background: white;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1;
+}
+
+p {
+  color: black;
+  text-decoration: none;
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: pink;
+}
+
+.top {
+  display: block;
+  height: 6.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.container {
+  position: center;
+  max-width: 800px;
+}
+
+/*.login {
+  background:
+  linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  ),
+  url(camera.jpg);
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+}*/

@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ratings/style.css' %}" />
+
 {% block content %}
 
 {% if form.errors %}
@@ -16,19 +20,21 @@
 
 <form action='/login/' method='POST'>
 {% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+<center><table>
+  <tr>
+      <td>{{ form.username.label_tag }}</td><br>
+      <td>{{ form.username }}</td>
+  </tr>
+  <tr>
+      <td>{{ form.password.label_tag }}</td>
+      <td>{{ form.password }}</td>
+  </tr>
 
+</table></center>
 
-<input type="submit" value="login" />
+<center><br>
+  <input type="submit" value="login" />
+</center>
 
 <input type="hidden" name="next" value="/ratings/user_redirect/" />
 </form>

@@ -4,7 +4,7 @@ from .models import Rating
 
 class RatingForm(forms.Form):
     rating = forms.ChoiceField(choices=[(x, x) for x in range(1, 6)])
-    review = forms.CharField(widget=forms.Textarea)
+    review = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
         model = Rating

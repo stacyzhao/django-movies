@@ -1,15 +1,30 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ratings/style.css' %}" />
+
+{% block content %}
+<div class="container">
+<nav class="top"><br><br>
 {% if user.is_authenticated %}
   HI, {{user.username}} <a href="/logout/">Log out</a>
 {% else %}
-  <a href="/ratings/login">Log in</a>
+  Hi there! >>>> <a href="/ratings/login">Log in</a>
+
 {% endif %}
 
-{% block content %}
-  <h1>Top 20 movies</h1>
-  <p>
+</nav>
+
+<div class="header">
+  <h2>Top 20 movies</h2>
+</div>
+
+<div class="body">
     {% for movie in movies %}
+    <p>
       Rating: {{movie.avg_rating | floatformat:"2"}}
       <a href="{% url 'ratings:movie_detail' movie.id %}">{{movie.title}}</a>
-  </p>
+    </p>
   {% endfor %}
+</div>
+</div>
 {% endblock %}
